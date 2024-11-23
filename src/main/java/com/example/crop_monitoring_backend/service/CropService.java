@@ -1,4 +1,4 @@
 package com.example.crop_monitoring_backend.service;
 
-public interface UserService {
+public interface CropService {
 }
