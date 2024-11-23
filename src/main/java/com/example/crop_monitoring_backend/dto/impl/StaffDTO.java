@@ -3,10 +3,16 @@ package com.example.crop_monitoring_backend.dto.impl;
 import com.example.crop_monitoring_backend.enums.Designation;
 import com.example.crop_monitoring_backend.enums.Gender;
 import com.example.crop_monitoring_backend.enums.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class StaffDTO {
     private String id;
     private String firstName;
