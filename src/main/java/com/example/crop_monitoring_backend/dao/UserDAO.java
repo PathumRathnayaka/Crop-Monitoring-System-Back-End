@@ -1,4 +1,4 @@
 package com.example.crop_monitoring_backend.dao;
 
-public interface LogDao {
+public interface UserDAO {
 }
