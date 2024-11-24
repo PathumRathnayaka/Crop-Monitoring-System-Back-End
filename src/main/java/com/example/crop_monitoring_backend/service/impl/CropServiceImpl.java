@@ -4,10 +4,11 @@ import com.example.crop_monitoring_backend.dao.CropDAO;
 import com.example.crop_monitoring_backend.dto.CropStatus;
 import com.example.crop_monitoring_backend.dto.impl.CropDTO;
 import com.example.crop_monitoring_backend.entity.impl.CropEntity;
+import com.example.crop_monitoring_backend.exception.DataPersistException;
 import com.example.crop_monitoring_backend.service.CropService;
+import com.example.crop_monitoring_backend.utill.AppUtill;
+import com.example.crop_monitoring_backend.utill.Mapping;
 import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,24 +22,33 @@ public class CropServiceImpl implements CropService {
     @Autowired
     private CropDAO cropDAO;
     @Autowired
-    private ModelMapper modelMapper;
+    private Mapping cropMapping;
 
 
     @Override
     public void saveCrop(CropDTO cropDTO) {
+        cropDTO.setCCode(AppUtill.generateCropCode());
+        CropEntity saveCrop=cropDAO.save(cropMapping.toCropEntity(cropDTO));
+        if (saveCrop==null){
+            throw new DataPersistException("Crop not saved");
+        }
 
     }
 
-
-
     @Override
     public List<CropDTO> getAllCrops() {
-        return List.of();
+        return cropMapping.asCropDTOList(cropDAO.findAll());
     }
 
     @Override
     public CropStatus getCrop(String cropId) {
-        return null;
+        /*if (cropDAO.existsById(cropId)){
+            var selectedUser = cropDAO.getReferenceById(cropId);
+            return cropMapping.toCropDTO(selectedUser);
+        }else {
+            return
+        }*/
+
     }
 
     @Override
