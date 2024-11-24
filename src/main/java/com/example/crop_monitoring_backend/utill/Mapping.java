@@ -1,11 +1,7 @@
 package com.example.crop_monitoring_backend.utill;
 
-import com.example.crop_monitoring_backend.dto.impl.CropDTO;
-import com.example.crop_monitoring_backend.dto.impl.FieldDTO;
-import com.example.crop_monitoring_backend.dto.impl.StaffDTO;
-import com.example.crop_monitoring_backend.entity.impl.CropEntity;
-import com.example.crop_monitoring_backend.entity.impl.FIeldEntity;
-import com.example.crop_monitoring_backend.entity.impl.StaffEntity;
+import com.example.crop_monitoring_backend.dto.impl.*;
+import com.example.crop_monitoring_backend.entity.impl.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +49,39 @@ public class Mapping {
     }
     public List<StaffDTO> asStaffDTOList(List<StaffEntity> staffEntities){
         return mapper.map(staffEntities, new TypeToken<List<StaffDTO>>(){}.getType());
+    }
+
+    /*Vehicle Mapping--------------*/
+    public VehicleDTO toVehicleDTO(VehicleEntity vehicleEntity){
+        return mapper.map(vehicleEntity, VehicleDTO.class);
+    }
+    public VehicleEntity toVehicleEntity(VehicleDTO vehicleDTO){
+        return mapper.map(vehicleDTO, VehicleEntity.class);
+    }
+    public List<VehicleDTO> asVehicleDTOList(List<VehicleEntity> vehicleEntities){
+        return mapper.map(vehicleEntities, new TypeToken<List<VehicleDTO>>(){}.getType());
+    }
+
+      /* Equipment mapping--------*/
+
+    public EquipmentEntity toEquipmentEntity(EquipmentDTO equipmentDTO) {
+        return mapper.map(equipmentDTO, EquipmentEntity.class);
+    }
+
+    public List<EquipmentDTO> toEquipmentDTOList(List<EquipmentEntity> equipmentEntities) {
+        return mapper.map(equipmentEntities,new TypeToken<List<EquipmentDTO>>(){}.getType());
+    }
+
+    public EquipmentDTO toEquipmentDTO(EquipmentEntity equipmentEntity) {
+        return mapper.map(equipmentEntity,EquipmentDTO.class);
+    }
+
+      /*for log mapping------*/
+    public LogEntity toLogEntity(LogDTO logDTO) {
+        return mapper.map(logDTO, LogEntity.class);
+    }
+
+    public List<LogDTO> asLogDTOList(List<LogEntity> logEntities) {
+        return mapper.map(logEntities,new TypeToken<List<LogDTO>>(){}.getType());
     }
 }
