@@ -17,13 +17,13 @@ public class Mapping {
 
     /*field Mapping-----*/
 
-    public FieldDTO tofieldDTO(FIeldEntity fIeldEntity) {
+    public FieldDTO tofieldDTO(FieldEntity fIeldEntity) {
         return mapper.map(fIeldEntity, FieldDTO.class);
     }
-    public FIeldEntity toFIeldEntity(FieldDTO fieldDTO) {
-        return mapper.map(fieldDTO, FIeldEntity.class);
+    public FieldEntity toFIeldEntity(FieldDTO fieldDTO) {
+        return mapper.map(fieldDTO, FieldEntity.class);
     }
-    public List<FieldDTO> asFieldDTOList(List<FIeldEntity> fIeldEntities) {
+    public List<FieldDTO> asFieldDTOList(List<FieldEntity> fIeldEntities) {
         return mapper.map(fIeldEntities, new TypeToken<List<FieldDTO>>(){}.getType());
     }
 

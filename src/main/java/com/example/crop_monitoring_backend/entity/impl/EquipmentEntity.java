@@ -1,4 +1,6 @@
 package com.example.crop_monitoring_backend.entity.impl;
 
-public class EquipmentEntity {
+import com.example.crop_monitoring_backend.entity.SuperEntity;
+
+public class EquipmentEntity implements SuperEntity {
 }

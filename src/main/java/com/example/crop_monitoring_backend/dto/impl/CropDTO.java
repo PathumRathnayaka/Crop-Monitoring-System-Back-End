@@ -11,12 +11,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CropDTO implements CropStatus {
-    private String CCode;
-    private String CCommonName;
-    private String CScientificName;
-    private String CropImage;
-    private String Category;
-    private String CropSession;
-    private String field;
+    private String cCode;
+    private String cCommonName;
+    private String cScientificName;
+    private String cropImage;
+    private String category;
+    private String cropSeason ;
+    private String fieldCode;
 
 }
