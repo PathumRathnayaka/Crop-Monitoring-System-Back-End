@@ -1,5 +1,6 @@
 package com.example.crop_monitoring_backend.service.impl;
 
+import com.example.crop_monitoring_backend.customStatusCodes.ErrorStatusCodes;
 import com.example.crop_monitoring_backend.dao.CropDAO;
 import com.example.crop_monitoring_backend.dto.CropStatus;
 import com.example.crop_monitoring_backend.dto.impl.CropDTO;
@@ -42,12 +43,12 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public CropStatus getCrop(String cropId) {
-        /*if (cropDAO.existsById(cropId)){
+        if (cropDAO.existsById(cropId)){
             var selectedUser = cropDAO.getReferenceById(cropId);
             return cropMapping.toCropDTO(selectedUser);
         }else {
-            return
-        }*/
+            return new ErrorStatusCodes(2,"Selected Crop not found");
+        }
 
     }
 

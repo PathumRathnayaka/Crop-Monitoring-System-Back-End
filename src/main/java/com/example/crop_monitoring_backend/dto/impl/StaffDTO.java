@@ -1,5 +1,6 @@
 package com.example.crop_monitoring_backend.dto.impl;
 
+import com.example.crop_monitoring_backend.dto.StaffStatus;
 import com.example.crop_monitoring_backend.enums.Designation;
 import com.example.crop_monitoring_backend.enums.Gender;
 import com.example.crop_monitoring_backend.enums.Role;
@@ -13,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StaffDTO {
+public class StaffDTO implements StaffStatus {
     private String id;
     private String firstName;
     private String lastName;

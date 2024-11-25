@@ -1,5 +1,6 @@
 package com.example.crop_monitoring_backend.dto.impl;
 
+import com.example.crop_monitoring_backend.dto.EquipmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EquipmentDTO {
+public class EquipmentDTO implements EquipmentStatus {
     private String equipment_id;
     private String name;
     private String status;
