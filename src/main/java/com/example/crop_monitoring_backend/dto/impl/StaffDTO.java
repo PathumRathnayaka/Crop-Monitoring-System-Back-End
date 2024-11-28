@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StaffDTO implements StaffStatus {
-    private String id;
+    private String StaffId;
     private String firstName;
     private String lastName;
     private Designation designation;
