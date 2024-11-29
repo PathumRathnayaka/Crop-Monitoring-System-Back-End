@@ -39,11 +39,19 @@ public class StaffEntity implements SuperEntity {
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "staffField",
-            joinColumns = @JoinColumn("staffId"),
+            joinColumns = @JoinColumn(name = "staffId"),
             inverseJoinColumns = @JoinColumn(name = "fieldCode")
     )
     private List<FieldEntity> fields;
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<VehicleEntity> vehicles;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "staffEquipment",
+            joinColumns = @JoinColumn(name = "staffId"),
+            inverseJoinColumns = @JoinColumn(name = "equipmentId")
+    )
     private List<EquipmentEntity> equipment;
+    @OneToMany(mappedBy = "staff",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LogEntity> logs;
 }

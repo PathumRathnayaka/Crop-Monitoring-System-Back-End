@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.geo.Point;
 
-import java.awt.*;
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,9 +26,19 @@ public class FieldEntity implements SuperEntity {
     private String image1;
     @Column(columnDefinition = "LONGTEXT")
     private String image2;
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CropEntity> crops;
-    @ManyToMany(mappedBy = "field",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "field",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<StaffEntity> staffs;
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(
+            name = "FieldEquipment",
+            joinColumns = @JoinColumn(name = "fieldId"),
+            inverseJoinColumns = @JoinColumn(name = "equipmentId")
+    )
     private List<EquipmentEntity> equipment;
+    @OneToMany(mappedBy = "field",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LogEntity> logs;
+
+
 }
