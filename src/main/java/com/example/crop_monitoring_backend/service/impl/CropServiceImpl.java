@@ -10,9 +10,9 @@ import com.example.crop_monitoring_backend.exception.DataPersistException;
 import com.example.crop_monitoring_backend.service.CropService;
 import com.example.crop_monitoring_backend.utill.AppUtill;
 import com.example.crop_monitoring_backend.utill.Mapping;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +49,7 @@ public class CropServiceImpl implements CropService {
             var selectedUser = cropDAO.getReferenceById(cropId);
             return cropMapping.toCropDTO(selectedUser);
         }else {
-            return new ErrorStatusCodes(2,"Selected Crop not found");
+            return new ErrorStatusCodes(1,"Selected Crop not found");
         }
 
     }

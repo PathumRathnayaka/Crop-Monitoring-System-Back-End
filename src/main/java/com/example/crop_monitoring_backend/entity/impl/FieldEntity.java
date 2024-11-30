@@ -20,8 +20,8 @@ public class FieldEntity implements SuperEntity {
     private String fieldCode;
     @Column(unique = true)
     private String fieldName;
-    private Point location;
-    private Double extendSize;
+    private Point fieldLocation;
+    private Double extent_size;
     @Column(columnDefinition = "LONGTEXT")
     private String image1;
     @Column(columnDefinition = "LONGTEXT")
