@@ -68,7 +68,12 @@ public class CropServiceImpl implements CropService {
         if (!findCrop.isPresent()){
             throw new CropNotFoundException("Crop Not Found");
         }else {
-            findCrop.get().setCCommonName();
+            findCrop.get().setCCommonName(cropDTO.getCCommonName());
+            findCrop.get().setCScientificName(cropDTO.getCScientificName());
+            findCrop.get().setCropImage(cropDTO.getCropImage());
+            findCrop.get().setCategory(cropDTO.getCategory());
+            findCrop.get().setCropSeason(cropDTO.getCropSeason());
+            findCrop.get().setField(cropDTO.getFieldCode());
         }
     }
 }
