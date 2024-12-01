@@ -27,6 +27,6 @@ public class CropEntity implements SuperEntity {
     @ManyToOne
     @JoinColumn(name = "fieldCode", nullable = false)
     private FieldEntity field;
-    @OneToMany(mappedBy = "field",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "crops",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LogEntity> logs;
 }

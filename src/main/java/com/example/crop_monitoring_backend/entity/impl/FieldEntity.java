@@ -28,8 +28,10 @@ public class FieldEntity implements SuperEntity {
     private String image2;
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<CropEntity> crops;
+
     @OneToMany(mappedBy = "field",cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private List<StaffEntity> staffs;
+
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinTable(
             name = "FieldEquipment",
@@ -37,7 +39,8 @@ public class FieldEntity implements SuperEntity {
             inverseJoinColumns = @JoinColumn(name = "equipmentId")
     )
     private List<EquipmentEntity> equipment;
-    @OneToMany(mappedBy = "field",cascade = CascadeType.ALL,orphanRemoval = true)
+
+    @OneToMany(mappedBy = "fields",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LogEntity> logs;
 
 

@@ -51,6 +51,6 @@ public class StaffEntity implements SuperEntity {
             inverseJoinColumns = @JoinColumn(name = "equipmentId")
     )
     private List<EquipmentEntity> equipment;
-    @OneToMany(mappedBy = "staffs",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "staff",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<LogEntity> logs;
 }
