@@ -60,6 +60,8 @@ public class FieldServiceImpl implements FieldService {
         Optional<FieldEntity> foundField=fieldDAO.findById(fieldId);
         if (!foundField.isPresent()){
             throw new FieldNotFoundException("Field not Found");
+        }else {
+            fieldDAO.deleteById(fieldId);
         }
     }
 
