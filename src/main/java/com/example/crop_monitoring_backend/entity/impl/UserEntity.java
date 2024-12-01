@@ -20,6 +20,8 @@ public class UserEntity implements SuperEntity {
     @Id
     private String userId;
     private String userName;
+    private String email;
+    private String password;
     private Role role;
 
 }

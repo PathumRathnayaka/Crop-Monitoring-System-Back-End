@@ -87,4 +87,18 @@ public class Mapping {
     public LogDTO toLogDTO(LogEntity logEntity) {
         return mapper.map(logEntity,LogDTO.class);
     }
+
+    /* User Mapping */
+    public UserDTO toUserDTO(UserEntity userEntity) {
+        return mapper.map(userEntity, UserDTO.class);
+    }
+
+    public UserEntity toUserEntity(UserDTO userDTO) {
+        return mapper.map(userDTO, UserEntity.class);
+    }
+
+    public List<UserDTO> asUserDTOList(List<UserEntity> userEntities) {
+        return mapper.map(userEntities, new TypeToken<List<UserDTO>>() {}.getType());
+    }
+
 }
