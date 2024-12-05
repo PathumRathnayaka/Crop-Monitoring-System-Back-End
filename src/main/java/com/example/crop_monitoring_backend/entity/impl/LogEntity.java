@@ -7,29 +7,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "log")
 public class LogEntity implements SuperEntity {
     @Id
-    private String log_code;
-    @Column(unique = true)
-    private String tempId;
-    private Date date;
-    private String details;
+    String logCode;
+
+    Date date;
+    String observation;
+
     @Column(columnDefinition = "LONGTEXT")
-    private String image;
-    @ManyToOne
-    @JoinColumn(name = "fieldId", nullable = false)
-    private FieldEntity fields;
-    @ManyToOne
-    @JoinColumn(name = "cropId", nullable = false)
-    private CropEntity crops;
-    @ManyToOne
-    @JoinColumn(name = "staffId")
-    private StaffEntity staffs;
+    String observationImage;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "field_code")
+    FieldEntity fieldEntity;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "crop_code")
+    CropEntity cropEntity;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "staff_id", referencedColumnName = "id")
+    StaffEntity staffEntity;
 }

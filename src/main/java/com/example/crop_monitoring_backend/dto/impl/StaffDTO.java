@@ -1,9 +1,10 @@
 package com.example.crop_monitoring_backend.dto.impl;
 
 import com.example.crop_monitoring_backend.dto.StaffStatus;
-import com.example.crop_monitoring_backend.enums.Designation;
 import com.example.crop_monitoring_backend.enums.Gender;
 import com.example.crop_monitoring_backend.enums.Role;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,21 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StaffDTO implements StaffStatus {
-    private String StaffId;
-    private String firstName;
-    private String lastName;
-    private Designation designation;
-    private Gender gender;
-    private Date joinedDate;
-    private Date dob;
-    private String address1;
-    private String address2;
-    private String address3;
-    private String address4;
-    private String address5;
-    private String contactNo;
-    private String email;
-    private Role role;
-    private List<FieldDTO> fields;
-    private List<VehicleDTO> vehicles;
+    String id;
+    String firstName;
+    String lastName;
+    String designation;
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+    Date joinedDate;
+    Date dob;
+    String address;
+    String contact;
+    String email;
+    @Enumerated(EnumType.STRING)
+    Role role;
+    List<FieldDTO> fields;
 }

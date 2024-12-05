@@ -2,7 +2,7 @@ package com.example.crop_monitoring_backend.service.impl;
 
 import com.example.crop_monitoring_backend.customStatusCodes.ErrorStatusCodes;
 import com.example.crop_monitoring_backend.dao.EquipmentDAO;
-import com.example.crop_monitoring_backend.dto.EquipmentStatus;
+import com.example.crop_monitoring_backend.dto.EquipmentsStatus;
 import com.example.crop_monitoring_backend.dto.impl.EquipmentDTO;
 import com.example.crop_monitoring_backend.entity.impl.EquipmentEntity;
 import com.example.crop_monitoring_backend.exception.DataPersistException;
@@ -40,7 +40,7 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
-    public EquipmentStatus getEquipment(String equipmentId) {
+    public EquipmentsStatus getEquipment(String equipmentId) {
         if (equipmentDAO.existsById(equipmentId)) {
             var selectedEquipment = equipmentDAO.getReferenceById(equipmentId);
             return equipmentMapping.toEquipmentDTO(selectedEquipment);
@@ -66,7 +66,8 @@ public class EquipmentServiceImpl implements EquipmentService {
         } else {
             findEquipment.get().setName(equipmentDTO.getName());
             findEquipment.get().setStatus(equipmentDTO.getStatus());
-            findEquipment.get().setType(equipmentDTO.getType());
+            findEquipment.get().setEquipmentType(equipmentDTO.getEquipmentType());
+            findEquipment.get().setStaff(equipmentMapping.toStaffEntity(equipmentDTO.getStaff()));
         }
 
     }

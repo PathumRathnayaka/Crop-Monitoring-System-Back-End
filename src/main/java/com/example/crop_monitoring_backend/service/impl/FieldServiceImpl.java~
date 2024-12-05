@@ -55,14 +55,13 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void deleteField(String fieldId) {
-        Optional<FieldEntity> foundField = fieldDAO.findById(fieldId);
-        if (foundField.isEmpty()) {
-            throw new FieldNotFoundException("Field not found for ID: " + fieldId);
+        Optional<FieldEntity> foundField=fieldDAO.findById(fieldId);
+        if (!foundField.isPresent()){
+            throw new FieldNotFoundException("Field not Found");
         }else {
             fieldDAO.deleteById(fieldId);
         }
     }
-
 
     @Override
     public void updateField(String fieldId, FieldDTO fieldDTO) {

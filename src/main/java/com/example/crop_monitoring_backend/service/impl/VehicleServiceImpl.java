@@ -29,7 +29,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void saveVehicle(VehicleDTO vehicleDTO) {
-        vehicleDTO.setVehicle_code(AppUtill.generateVehicleCode());
+        vehicleDTO.setVehicleCode(AppUtill.generateVehicleCode());
         VehicleEntity saveVehicle=vehicleDAO.save(vehicleMapping.toVehicleEntity(vehicleDTO));
         if (saveVehicle!=null) {
             throw new DataPersistException("Vehicle not saved");
@@ -70,7 +70,7 @@ public class VehicleServiceImpl implements VehicleService {
         }else {
             findVehicle.get().setLicensePlateNum(vehicleDTO.getLicensePlateNum());
             findVehicle.get().setCategory(vehicleDTO.getCategory());
-            findVehicle.get().setFuel_type(vehicleDTO.getFuel_type());
+            findVehicle.get().setFuelType(vehicleDTO.getFuelType());
             findVehicle.get().setStatus(vehicleDTO.getStatus());
             findVehicle.get().setRemarks(vehicleDTO.getRemarks());
         }

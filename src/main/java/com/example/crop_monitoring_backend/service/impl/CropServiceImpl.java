@@ -30,7 +30,7 @@ public class CropServiceImpl implements CropService {
 
     @Override
     public void saveCrop(CropDTO cropDTO) {
-        cropDTO.setCCode(AppUtill.generateCropCode());
+        cropDTO.setCropCode(AppUtill.generateCropCode());
         CropEntity saveCrop=cropDAO.save(cropMapping.toCropEntity(cropDTO));
         if (saveCrop==null){
             throw new DataPersistException("Crop not saved");
@@ -70,12 +70,12 @@ public class CropServiceImpl implements CropService {
         if (!findCrop.isPresent()){
             throw new CropNotFoundException("Crop Not Found");
         }else {
-            findCrop.get().setCCommonName(cropDTO.getCCommonName());
-            findCrop.get().setCScientificName(cropDTO.getCScientificName());
-            findCrop.get().setCropImage(cropDTO.getCropImage());
+            findCrop.get().setCommonName(cropDTO.getCommonName());
+            findCrop.get().setScientificName(cropDTO.getScientificName());
+            findCrop.get().setImage(cropDTO.getImage());
             findCrop.get().setCategory(cropDTO.getCategory());
-            findCrop.get().setCropSeason(cropDTO.getCropSeason());
-            findCrop.get().setField(cropDTO.getFieldCode());
+            findCrop.get().setSeason(cropDTO.getSeason());
+            findCrop.get().setFieldEntity(cropMapping.toFIeldEntity(cropDTO.getFieldDTO()));
         }
     }
 }

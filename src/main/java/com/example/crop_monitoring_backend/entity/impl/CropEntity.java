@@ -1,6 +1,5 @@
 package com.example.crop_monitoring_backend.entity.impl;
 
-
 import com.example.crop_monitoring_backend.entity.SuperEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,23 +9,23 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "crop")
 public class CropEntity implements SuperEntity {
     @Id
-    private String cCode;
-    @Column(unique = true)
-    private String cCommonName;
-    private String cScientificName;
+    String cropCode;
+    String commonName;
+    String scientificName;
     @Column(columnDefinition = "LONGTEXT")
-    private String cropImage;
-    private String category;
-    private String cropSeason ;
+    String image;
+    String category;
+    String season;
+
     @ManyToOne
-    @JoinColumn(name = "fieldCode", nullable = false)
-    private FieldEntity field;
-    @OneToMany(mappedBy = "crops",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<LogEntity> logs;
+    @JoinColumn(name = "field_code" )
+    FieldEntity fieldEntity;
+
+    @OneToMany(mappedBy = "cropEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<LogEntity> logEntityList;
 }

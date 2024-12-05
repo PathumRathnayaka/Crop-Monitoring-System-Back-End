@@ -1,11 +1,10 @@
 package com.example.crop_monitoring_backend.controller;
 
 import com.example.crop_monitoring_backend.customStatusCodes.ErrorStatusCodes;
-import com.example.crop_monitoring_backend.dto.FieldStatus;
-import com.example.crop_monitoring_backend.dto.impl.FieldDTO;
+import com.example.crop_monitoring_backend.dto.StaffStatus;
+import com.example.crop_monitoring_backend.exception.StaffNotFoundException;
 import com.example.crop_monitoring_backend.exception.DataPersistException;
-import com.example.crop_monitoring_backend.exception.FieldNotFoundException;
-import com.example.crop_monitoring_backend.service.FieldService;
+import com.example.crop_monitoring_backend.service.StaffService;
 import com.example.crop_monitoring_backend.utill.RegexProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/fields")
-@CrossOrigin
-public class FieldController {
+@RequestMapping("api/v1/staffs")
+public class StaffController {
+
     @Autowired
-    private FieldService fieldService;
+    private StaffService staffService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveField(@RequestBody FieldDTO fieldDTO) {
+    public ResponseEntity<Void> saveStaff(@RequestBody StaffDTO staffDTO) {
         try {
-            fieldService.saveField(fieldDTO);
+            staffService.saveStaff(staffDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -34,25 +33,28 @@ public class FieldController {
         }
     }
 
-    @GetMapping(value = "/{fieldId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public FieldStatus getSelectedField(@PathVariable("fieldId") String fieldId) {
-        if (!RegexProcess.fieldIdMatcher(fieldId)) {
-            return new ErrorStatusCodes(1, "Field Id is Not Valid");
+    @GetMapping(value = "/{staffId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StaffStatus getSelectedStaff(@PathVariable("staffId") String staffId) {
+        if (!RegexProcess.staffIdMatcher(staffId)) {
+            return new ErrorStatusCodes(1, "Staff Id is Not Valid");
         }
-        return fieldService.getField(fieldId);
+        return staffService.getStaff(staffId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FieldDTO> getAllFields() {
-        return fieldService.getAllFields();
+    public List<StaffDTO> getAllStaffs() {
+        return staffService.getAllStaffs();
     }
 
-    @DeleteMapping(value = "/{fieldId}")
-    public ResponseEntity<Void> deleteField(@PathVariable("fieldId") String fieldId) {
+    @DeleteMapping(value = "/{staffId}")
+    public ResponseEntity<Void> deleteStaff(@PathVariable("staffId") String staffId) {
         try {
-            fieldService.deleteField(fieldId);
+            if (!RegexProcess.staffIdMatcher(staffId)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            staffService.deleteStaff(staffId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (FieldNotFoundException e) {
+        } catch (StaffNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
@@ -61,15 +63,15 @@ public class FieldController {
         }
     }
 
-    @PutMapping(value = "/{fieldId}")
-    public ResponseEntity<Void> updateField(@PathVariable("fieldId") String fieldId, @RequestBody FieldDTO fieldDTO) {
+    @PutMapping(value = "/{staffId}")
+    public ResponseEntity<Void> updateStaff(@PathVariable("staffId") String staffId, @RequestBody StaffDTO staffDTO) {
         try {
-            if (!RegexProcess.fieldIdMatcher(fieldId) || fieldDTO == null) {
+            if (!RegexProcess.staffIdMatcher(staffId) || staffDTO == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            fieldService.updateField(fieldId, fieldDTO);
+            staffService.updateStaff(staffId, staffDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (FieldNotFoundException e) {
+        } catch (StaffNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

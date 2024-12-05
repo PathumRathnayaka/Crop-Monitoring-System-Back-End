@@ -1,9 +1,10 @@
 package com.example.crop_monitoring_backend.entity.impl;
 
-import com.example.crop_monitoring_backend.entity.SuperEntity;
-import com.example.crop_monitoring_backend.enums.Designation;
+
 import com.example.crop_monitoring_backend.enums.Gender;
 import com.example.crop_monitoring_backend.enums.Role;
+
+import com.example.crop_monitoring_backend.entity.SuperEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,45 +13,40 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Entity
-@Table(name = "staff")
 public class StaffEntity implements SuperEntity {
     @Id
-    private String staffId;
-    @Column(unique = true)
-    private String firstName;
-    private String lastName;
-    private Designation designation;
-    private Gender gender;
-    private Date joinedDate;
-    private Date dob;
-    private String address1;
-    private String address2;
-    private String address3;
-    private String address4;
-    private String address5;
-    private String contactNo;
-    @Column(unique = true)
-    private String email;
-    private Role role;
-
-    @ManyToOne // Change this to ManyToOne
-    @JoinColumn(name = "fieldId") // Ensure this matches the field in FieldEntity
-    private FieldEntity field; // Change from fields to field
-
-    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<VehicleEntity> vehicles;
+    String id;
+    String firstName;
+    String lastName;
+    String designation;
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+    Date joinedDate;
+    Date dob;
+    String address;
+    String contact;
+    String email;
+    @Enumerated(EnumType.STRING)
+    Role role;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "staffEquipment",
-            joinColumns = @JoinColumn(name = "staffId"),
-            inverseJoinColumns = @JoinColumn(name = "equipmentId")
+            name = "staff_field",
+            joinColumns = @JoinColumn(name = "staff_id"),
+            inverseJoinColumns = @JoinColumn(name = "field_code")
     )
-    private List<EquipmentEntity> equipment;
-    @OneToMany(mappedBy = "staffs",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<LogEntity> logs;
+    List<FieldEntity> fields;
+
+    @OneToMany(mappedBy = "staff")
+    List<VehicleEntity> vehicleEntities;
+
+    @OneToMany(mappedBy = "staff")
+    List<EquipmentEntity> equipmentEntityList;
+
+    @OneToOne(mappedBy ="staffEntity")
+    LogEntity log;
 }

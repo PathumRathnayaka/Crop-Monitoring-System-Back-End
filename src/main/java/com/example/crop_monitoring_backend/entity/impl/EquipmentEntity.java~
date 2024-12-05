@@ -1,8 +1,10 @@
 package com.example.crop_monitoring_backend.entity.impl;
 
 import com.example.crop_monitoring_backend.entity.SuperEntity;
-import com.example.crop_monitoring_backend.enums.EquipmentStatus;
 import com.example.crop_monitoring_backend.enums.EquipmentType;
+import com.example.proposedcropmonitoringsystembackend.entity.SuperEntity;
+import com.example.proposedcropmonitoringsystembackend.util.EquipmentStatus;
+import com.example.proposedcropmonitoringsystembackend.util.EquipmentType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

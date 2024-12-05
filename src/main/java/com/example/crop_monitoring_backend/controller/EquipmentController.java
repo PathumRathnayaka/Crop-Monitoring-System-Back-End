@@ -1,7 +1,7 @@
 package com.example.crop_monitoring_backend.controller;
 
 import com.example.crop_monitoring_backend.customStatusCodes.ErrorStatusCodes;
-import com.example.crop_monitoring_backend.dto.EquipmentStatus;
+import com.example.crop_monitoring_backend.dto.EquipmentsStatus;
 import com.example.crop_monitoring_backend.dto.impl.EquipmentDTO;
 import com.example.crop_monitoring_backend.exception.EquipmentNotFoundException;
 import com.example.crop_monitoring_backend.exception.DataPersistException;
@@ -35,7 +35,7 @@ public class EquipmentController {
     }
 
     @GetMapping(value = "/{equipmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public EquipmentStatus getSelectedEquipment(@PathVariable("equipmentId") String equipmentId) {
+    public EquipmentsStatus getSelectedEquipment(@PathVariable("equipmentId") String equipmentId) {
         if (!RegexProcess.equipmentIdMatcher(equipmentId)) {
             return new ErrorStatusCodes(1, "Equipment Id is Not Valid");
         }

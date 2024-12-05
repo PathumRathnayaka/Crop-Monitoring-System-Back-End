@@ -1,11 +1,10 @@
 package com.example.crop_monitoring_backend.controller;
 
 import com.example.crop_monitoring_backend.customStatusCodes.ErrorStatusCodes;
-import com.example.crop_monitoring_backend.dto.FieldStatus;
-import com.example.crop_monitoring_backend.dto.impl.FieldDTO;
+import com.example.crop_monitoring_backend.dto.LogStatus;
+import com.example.crop_monitoring_backend.exception.LogNotFoundException;
 import com.example.crop_monitoring_backend.exception.DataPersistException;
-import com.example.crop_monitoring_backend.exception.FieldNotFoundException;
-import com.example.crop_monitoring_backend.service.FieldService;
+import com.example.crop_monitoring_backend.service.LogService;
 import com.example.crop_monitoring_backend.utill.RegexProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/fields")
-@CrossOrigin
-public class FieldController {
+@RequestMapping("api/v1/logs")
+public class LogController {
+
     @Autowired
-    private FieldService fieldService;
+    private LogService logService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> saveField(@RequestBody FieldDTO fieldDTO) {
+    public ResponseEntity<Void> saveLog(@RequestBody LogDTO logDTO) {
         try {
-            fieldService.saveField(fieldDTO);
+            logService.saveLog(logDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -34,25 +33,28 @@ public class FieldController {
         }
     }
 
-    @GetMapping(value = "/{fieldId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public FieldStatus getSelectedField(@PathVariable("fieldId") String fieldId) {
-        if (!RegexProcess.fieldIdMatcher(fieldId)) {
-            return new ErrorStatusCodes(1, "Field Id is Not Valid");
+    @GetMapping(value = "/{logId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public LogStatus getSelectedLog(@PathVariable("logId") String logId) {
+        if (!RegexProcess.logIdMatcher(logId)) {
+            return new ErrorStatusCodes(1, "Log Id is Not Valid");
         }
-        return fieldService.getField(fieldId);
+        return logService.getLog(logId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FieldDTO> getAllFields() {
-        return fieldService.getAllFields();
+    public List<LogDTO> getAllLogs() {
+        return logService.getAllLogs();
     }
 
-    @DeleteMapping(value = "/{fieldId}")
-    public ResponseEntity<Void> deleteField(@PathVariable("fieldId") String fieldId) {
+    @DeleteMapping(value = "/{logId}")
+    public ResponseEntity<Void> deleteLog(@PathVariable("logId") String logId) {
         try {
-            fieldService.deleteField(fieldId);
+            if (!RegexProcess.logIdMatcher(logId)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            logService.deleteLog(logId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (FieldNotFoundException e) {
+        } catch (LogNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
@@ -61,15 +63,15 @@ public class FieldController {
         }
     }
 
-    @PutMapping(value = "/{fieldId}")
-    public ResponseEntity<Void> updateField(@PathVariable("fieldId") String fieldId, @RequestBody FieldDTO fieldDTO) {
+    @PutMapping(value = "/{logId}")
+    public ResponseEntity<Void> updateLog(@PathVariable("logId") String logId, @RequestBody LogDTO logDTO) {
         try {
-            if (!RegexProcess.fieldIdMatcher(fieldId) || fieldDTO == null) {
+            if (!RegexProcess.logIdMatcher(logId) || logDTO == null) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            fieldService.updateField(fieldId, fieldDTO);
+            logService.updateLog(logId, logDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (FieldNotFoundException e) {
+        } catch (LogNotFoundException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (Exception e) {

@@ -29,7 +29,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public void saveLog(LogDTO logDTO) {
-        logDTO.setLog_code(AppUtill.generateLogCode());
+        logDTO.setLogCode(AppUtill.generateLogCode());
         LogEntity saveLog=logDAO.save(logMapping.toLogEntity(logDTO));
         if (saveLog==null){
             throw new DataPersistException("Log not saved");
@@ -69,10 +69,9 @@ public class LogServiceImpl implements LogService {
         if (!foundLog.isPresent()){
             throw new DataPersistException("Log not found");
         }else {
-            foundLog.get().setTempId(logDTO.getTempId());
             foundLog.get().setDate(logDTO.getDate());
-            foundLog.get().setDetails(logDTO.getDetails());
-            foundLog.get().setImage(logDTO.getImage());
+            foundLog.get().setObservation(logDTO.getObservation());
+            foundLog.get().setFieldEntity(logMapping.toFIeldEntity(logDTO.getFieldDTO()));
 
         }
 
